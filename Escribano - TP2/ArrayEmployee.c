@@ -4,7 +4,8 @@
  *  Created on: 29 sep. 2020
  *      Author:
  */
-#define TAM 4
+#define TAM 1000
+#define TEXT_SIZE 51
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,6 +39,7 @@ int searchForSpace(Employee* list, int len, int* position)
 			{
 				retorno=0;
 				*position=i;
+				break;
 			}
 		}
 	}
@@ -79,47 +81,40 @@ int findEmployeeById(Employee *list,int size, int valor, int* position)
 	int retorno = -1;
 		int i;
 		if(list!= NULL && TAM >=0)
-		    {
-		        for(i=0;i<TAM;i++)
-		        {
-		            if(list[i].isEmpty==0)
-		                continue;
-		            else if(list[i].id==valor)
-		            {
-		                retorno=0;
-		                *position=i;
-		                break;
-		            }
-		        }
-		    }
-		    return retorno;
+			    {
+			        for(i=0;i<TAM;i++)
+			        {
+			        	if(list[i].isEmpty==0 &&list[i].id==valor)
+			            {
+			                retorno=0;
+			                *position=i;
+			                break;
+			            }
+			        }
+			    }
+			    return retorno;
 }
 int removeEmployee(Employee* list, int len)
 {
 	int retorno =-1;
-	    int position;
-	    int auxId;
-	    if(list!=NULL && TAM>0)
-	    {
-	       printEmployees(list,TAM);
-	    	get_Entero(&auxId,1,"ID a dar de baja: \n","Error. Vuelva a ingresar ID\n",1,1000);
+		    int position;
+		    int auxId;
+		    if(list!=NULL && TAM>0)
+		    {
+		       printEmployees(list,TAM);
+		    	get_Entero(&auxId,1,"ID a dar de baja: \n","Error. Vuelva a ingresar ID\n",1,1000);
 
-	    	 if(!findEmployeeById(list,TAM,auxId,&position))
-	        {
-	            printf("ID inexistente\n");
-	        }
-	        else
-	        {
-	            list[position].isEmpty=1;
-	            list[position].id=0;
-	            strcpy(list[position].name,"");
-	            strcpy(list[position].lastName,"");
-	            list[position].salary=0;
-	            list[position].sector=0;
-	            retorno=0;
-	        }
-	    }
-	return retorno;
+		    	 if(findEmployeeById(list,TAM,auxId,&position)!=0)
+		        {
+		            printf("ID inexistente\n");
+		        }
+		        else
+		        {
+		            list[position].isEmpty=1;
+		            retorno=0;
+		        }
+		    }
+		return retorno;
 }
 int sortEmployees(Employee* list, int len)
 {
@@ -157,23 +152,23 @@ int sortEmployees(Employee* list, int len)
 		  }
 	return retorno;
 }
-void printEmployee(Employee list, int size)
+void printEmployee(Employee list)
 {
 
-	printf("%d   %-20s  %-20s   %.2f  %d   \n",list.id, list.name ,list.lastName, list.salary, list.sector);
+	printf("%d  %-20s  %20s   %.2f  %d   \n",list.id, list.name ,list.lastName, list.salary, list.sector);
 }
 int printEmployees(Employee list[], int size)
 {
 	int ret=-1;
 	int i;
 	printf("***************************Employee List***************************\n");
-	printf("Id    Name    Last Name    Salary    Sector\n");
+	printf("Id    Name       Last Name      Salary       Sector\n");
 	if(list!=NULL && TAM >0){
 		for(i=0;i<TAM;i++)
 		{
 			if(list[i].isEmpty==0)
 				{
-				printEmployee(list[i],TAM);
+				printEmployee(list[i]);
 				ret=0;
 				}
 		}
@@ -185,7 +180,7 @@ int printEmployees(Employee list[], int size)
 int modifyEmployee(Employee* list, int len)
 {
 	int retorno=-1;
-	    int position=0;
+	    int position;
 	    int auxId;
 	    int optionModify;
 	    char continuar='s';
@@ -194,7 +189,7 @@ int modifyEmployee(Employee* list, int len)
 	    {
 	    	printEmployees(list,TAM);
 	    	get_Entero(&auxId,1,"ID a modificar: \n","Error. Vuelva a ingresar ID\n",1,1000);
-	    	 	 	 	if(!findEmployeeById(list,TAM,auxId,&position))
+	    	 	 	 	if(findEmployeeById(list,TAM,auxId,&position)!=0)
 	    		        {
 	    		            printf("ID inexistente\n");
 	    		        }
@@ -203,7 +198,7 @@ int modifyEmployee(Employee* list, int len)
 
 	            do
 	            {
-	            	 printEmployees(list,TAM);
+
 	                get_Entero(&optionModify,1,"Modificar: 1-Nombre 2-Apellido 3-Salario 4-Sector 5(Salir)\n","Error.Ingrese opcion entre 1 y 5\n",1, 5);
 	                switch(optionModify)
 	                {
@@ -227,6 +222,7 @@ int modifyEmployee(Employee* list, int len)
 	                }
 	            }while(continuar!='s');
 	            retorno=0;
+	            printEmployee(list[position]);
 	        }
 
 	    }
@@ -276,16 +272,16 @@ int orderUpwards(Employee* list, int len)
 	if(list!=NULL && TAM>0){
 	 for(int i=0; i<TAM-1; i++)
 					    		    {
-					    		        for(int j=i+1; j<TAM; j++)
+					    		        for(int j=i+1; j<TAM; j++)//apellido y despues secotr
 					    		        {
 
-					    		                if(list[i].sector < list[j].sector)
+					    		                if( strcmp(list[i].lastName, list[j].lastName) > 0)
 					    		                {
 					    		                    auxEmployee = list[i];
 					    		                    list[i] = list[j];
 					    		                    list[j] = auxEmployee;
 					    		                }
-					    		                else if(list[i].sector == list[j].sector && strcmp(list[i].lastName, list[j].lastName) > 0)
+					    		                else if(strcmp(list[i].lastName, list[j].lastName) == 0 &&list[i].sector < list[j].sector)
 					    		                {
 					    		                    auxEmployee = list[i];
 					    		                    list[i] = list[j];
@@ -307,13 +303,13 @@ int orderDownwards(Employee* list, int len)
 			{
 			 for(int j=i+1; j<TAM; j++)
 			 	{
-			 	 if(list[i].sector > list[j].sector)
+			 	 if(strcmp(list[j].lastName, list[i].lastName) > 0)
 			 		 {
 			 			auxEmployee = list[i];
 			 			list[i] = list[j];
 			 			list[j] = auxEmployee;
 			 		 }
-			 	else if(list[i].sector == list[j].sector && strcmp(list[i].lastName, list[j].lastName) > 0)
+			 	else if(strcmp(list[i].lastName, list[j].lastName) == 0 &&list[i].sector > list[j].sector)
 			 		 {
 			 			auxEmployee = list[i];
 			 			list[i] = list[j];

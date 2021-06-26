@@ -5,7 +5,7 @@
  *      Author:
  */
 
-#define TAM 4
+#define TAM 1000
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -66,7 +66,7 @@ int main(void) {
 		        case 3:
 		        	if((flagNum1 ==1) && (searchForSpace(list, TAM, &posAux)==0))
 		        	{
-		        		printEmployees(list,TAM);
+
 		        		removeEmployee(list,TAM);
 		        	}
 		            else

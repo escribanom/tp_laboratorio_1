@@ -18,8 +18,6 @@ typedef struct{
 	int isEmpty;//0=full 1=empty
 }Employee;
 
-
-int initEmployees(Employee* list, int len);
 /** \brief To indicate that all position in the array are empty,
  * this function put the flag (isEmpty) in TRUE in all
  * position of the array
@@ -28,8 +26,8 @@ int initEmployees(Employee* list, int len);
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
+int initEmployees(Employee* list, int len);
 
-int searchForSpace(Employee* list, int len, int* position);
 /** \brief search for space in the array of employees
  * \param list Employee* Pointer to array of employees
  * \param len int Array length
@@ -37,7 +35,7 @@ int searchForSpace(Employee* list, int len, int* position);
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-int addEmployees(Employee* list, int len, int* nextId);
+int searchForSpace(Employee* list, int len, int* position);
 /** \brief copies loaded data into new function
  * \param list Employee* Pointer to array of employees
  * \param len int Array length
@@ -48,7 +46,7 @@ int addEmployees(Employee* list, int len, int* nextId);
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-int findEmployeeById(Employee *list,int size, int valor, int* position);
+int addEmployees(Employee* list, int len, int* nextId);
 /** \brief finds employee vy id
  * \param list Employee* Pointer to array of employees
  * \param len int Array length
@@ -57,14 +55,14 @@ int findEmployeeById(Employee *list,int size, int valor, int* position);
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-int removeEmployee(Employee* list, int len);
+int findEmployeeById(Employee *list,int size, int valor,int* position);
 /** \brief deletes employee from array
  * \param list Employee* Pointer to array of employees
  * \param len int Array length
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-int sortEmployees(Employee* list, int len);
+int removeEmployee(Employee* list, int len);
 /** \brief Sort the elements in the array of employees, the argument order
 indicate UP or DOWN order
  *
@@ -74,8 +72,8 @@ indicate UP or DOWN order
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
+int sortEmployees(Employee* list, int len);
 
-void printEmployee(Employee list, int size);
 /** \brief Prints only one employee
  *
  * \param list Employee
@@ -83,42 +81,43 @@ void printEmployee(Employee list, int size);
  * \return void
  *
  */
+void printEmployee(Employee list);
 
-
-int printEmployees(Employee* list, int len);
 
 /** \brief prints employee list
  * \param list Employee* Pointer to array of employees
- * \param len int Array length
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-void orderSalary(Employee* list, int len);
+int printEmployees(Employee* list, int len);
+
 /** \brief inform wanted items related to employees salaries
  * \param list Employee* Pointer to array of employees
  * \param len int Array length
  *
  *
  */
-int modifyEmployee(Employee* list, int len);
+void orderSalary(Employee* list, int len);
 /** \brief modifies employee parameters
  * \param list Employee* Pointer to array of employees
  * \param len int Array length
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-int orderUpwards(Employee* list, int len);
+int modifyEmployee(Employee* list, int len);
 /** \brief sort employees upwards
  * \param list Employee* Pointer to array of employees
  * \param len int Array length
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-int orderDownwards(Employee* list, int len);
+int orderUpwards(Employee* list, int len);
 /** \brief sort employees downwards
  * \param list Employee* Pointer to array of employees
  * \param len int Array length
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
+int orderDownwards(Employee* list, int len);
+
 #endif /* ARRAYEMPLOYEES_H_ */
